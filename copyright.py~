@@ -1,0 +1,40 @@
+#! /usr/bin/env python3
+import re
+import sys
+import os
+
+path = os.path.expanduser('~')
+pattern = '#BEGIN COPYRIGHT.*#END COPYRIGHT'
+
+copyright_file = sys.argv[1]
+destination_file = sys.argv[2]
+
+#print(copyright_file)
+#print(destination_file)
+
+copyright_file_path = os.path.join(path, copyright_file)
+destination_file_path = os.path.join(path, destination_file)
+
+with open(copyright_file_path, 'r') as file:
+    copyright_content = file.read()
+#print(copyright_content)
+
+with open(destination_file_path, 'r') as file:
+    destination = file.read()
+
+#print(destination)
+
+print(re.findall(pattern, destination, re.DOTALL))
+
+
+#for lines in destination:
+    #print(re.search(pattern, lines, re.S))
+#    lines = destination.split("\n")
+    #print(lines)
+if re.findall(pattern, destination, re.DOTALL):
+    insert = re.sub(pattern, copyright_content, destination, flags=re.DOTALL)
+        #print(insert)
+    with open(destination_file_path, 'w') as file:
+        file.writelines(insert)
+else:
+    print("No")

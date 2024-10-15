@@ -1,0 +1,154 @@
+from lab4 import *
+#from lab4a import *
+#from lab4b import *
+
+def solitaire_keystream(deck, length = 30):
+    #deck = create_deck()
+    #shuffle_deck(deck)
+    keystring = ""
+    while True:
+        if len(keystring) < length:
+            length_of_deck = size_of_deck(deck)
+            jokerA = find_card_place(deck, "Joker of spades")
+            jokerB = find_card_place(deck, "Joker of hearts")
+            if jokerA == - 1:
+                move_card(deck, jokerA, 1)
+            else:
+                move_card(deck, jokerA, jokerA - 1)
+
+            if jokerB == - 1:
+                move_card(deck, jokerB, 2)
+            elif jokerB == - 2:
+                move_card(deck, jokerB, 1)
+            else:
+                move_card(deck, jokerB, jokerB - 2)
+
+            jokerA = find_card_place(deck, "Joker of spades")
+            jokerB = find_card_place(deck, "Joker of hearts")
+            if jokerA > jokerB:
+                deck = split_deck_switch_order(deck, jokerA, jokerB)
+            else:
+                deck = split_deck_switch_order(deck, jokerB, jokerA)
+
+            bottom_card = get_value(deck, -1)
+            card = 0
+            while card <= bottom_card:
+                move_card(deck, 0, -1)
+                card += 1
+                
+            top_card = get_value(deck, 0)
+
+            if top_card > 27:
+                continue
+            else:
+                first_card_value = get_value(deck, 0)
+        
+            if first_card_value <= 26:
+                first_letter_value = get_value(deck, first_card_value)
+                if first_letter_value > 26:
+                    continue
+                else:
+                    keystream = change_to_letters(deck, first_card_value)
+                    keystring += keystream
+                
+        else:
+            #print(keystring)
+            return keystring
+            break
+
+#solitaire_keystream(30)
+
+       
+def number_letter_convertion(n):
+    number_to_letters = {"1": "A", "2": "B", "3": "C", "4": "D", "5": "E", "6": "F", "7": "G", "8": "H", "9": "I", "10": "J", "11": "K", "12": "L", "13": "M", "14": "N", "15": "O", "16": "P", "17": "Q", "18": "R", "19": "S", "20": "T", "21": "U", "22": "V", "23": "W", "24": "X", "25": "Y", "26": "Z"}
+    encrypt = []
+    for letters in n:
+        for key, value in number_to_letters.items():
+            if letters == value:
+                encrypt.append(int(key))
+                break
+            if letters == key:
+                encrypt.append(value)
+    return encrypt
+
+def solitaire_encrypt(message, deck):
+    message = message.upper()
+    key = solitaire_keystream(deck, len(message))
+    crypt = number_letter_convertion(message)
+
+    crypt_key = number_letter_convertion(key)
+
+    sums = list(zip(crypt, crypt_key))
+    
+    num = 0
+    crypt_sums = []
+    while True:
+        if num <= len(sums) - 1:
+            add = sum(sums[num])
+            crypt_sums.append(add)
+            num += 1
+        else:
+            break
+    for numbers in crypt_sums:
+        if numbers > 26:
+            spot = crypt_sums.index(numbers)
+            crypt_sums[spot] = crypt_sums[spot] - 26
+        else:
+            pass
+    crypt_sums_str = []
+    for elements in crypt_sums:
+        crypt_sums_str.append(str(elements))
+    convert_back = number_letter_convertion(crypt_sums_str)
+
+    final_string = ""
+    for number in convert_back:
+        final_string += number
+        
+    #print(f"{final_string} final")
+    return final_string
+
+#deck = create_deck()
+#solitaire_encrypt("Python", deck)
+
+def solitaire_decrypt(message, deck):  
+    crypt = number_letter_convertion(message)
+    
+    key = solitaire_keystream(deck, len(message))
+ 
+    crypt_key = number_letter_convertion(key)
+
+    sums = list(zip(crypt_key, crypt))
+    num = 0
+    crypt_sums = []
+    while True:
+        if num <= len(sums) - 1:
+            subtract = sums[num][1] - sums[num][0]
+            crypt_sums.append(subtract)
+            num += 1
+        else:
+            break
+    for numbers in crypt_sums:
+        if numbers < 1:
+            spot = crypt_sums.index(numbers)
+            crypt_sums[spot] = crypt_sums[spot] + 26
+        else:
+            pass
+    crypt_sums_str = []
+    for elements in crypt_sums:
+        crypt_sums_str.append(str(elements))
+    convert_back = number_letter_convertion(crypt_sums_str)
+
+    final_string = ""
+    for number in convert_back:
+        final_string += number
+        
+    print(final_string)
+    return final_string
+
+deck1 = create_deck()
+shuffle_deck(deck1, 1)
+deck2 = copy_deck(deck1)
+
+secret_message = solitaire_encrypt("Python", deck1)
+
+solitaire_decrypt(secret_message, deck2)

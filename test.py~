@@ -1,0 +1,144 @@
+import random
+
+def create_deck():
+    deck = []
+    for i in range(1, 27):
+        if i < 14:
+            deck.append((i, 1))
+        elif i < 27:
+            deck.append((i, 2))
+    deck.append((27, 1))
+    deck.append((27, 2))
+    return deck
+
+def shuffle_deck(deck):
+    random.shuffle(deck)
+    return deck
+
+def move_card(deck, cards, location):
+    card = deck.pop(cards)
+    deck.insert(location, card)
+    return deck
+
+def remove_card(deck, n):
+    deck.pop(n)
+    return deck
+
+def read_card(deck, n):
+    deck_dict = {"Ace of spades": (1, 1), "2 of spades": (2, 1), "3 of spades": (3, 1), "4 of spades": (4, 1), "5 of spades": (5, 1), "6 of spades": (6, 1), "7 of spades": (7, 1), "8 of spades": (8, 1), "9 of spades": (9, 1), "10 of spades": (10, 1), "Knight of spades": (11, 1), "Queen of spades": (12, 1), "King of spades": (13, 1), "Ace of hearts": (1, 2), "2 of hearts": (2, 2), "3 of hearts": (3, 2), "4 of hearts": (4, 2), "5 of hearts": (5, 2), "6 of hearts": (6, 2), "7 of hearts": (7, 2), "8 of hearts": (8, 2), "9 of hearts": (9, 2), "10 of hearts": (10, 2), "Knight of hearts": (11, 2), "Queen of hearts": (12, 2), "King of hearts": (13, 2), "Joker of spades": (27, 1), "Joker of hearts": (27, 2)}
+    for cards in deck:
+        if cards == deck[n - 1]:
+            for key, value in deck_dict.items():
+                if cards == value:           
+                    print(key)
+def read_deck(deck):
+    deck_dict = deck_dict = {"Ace of spades": (1, 1), "2 of spades": (2, 1), "3 of spades": (3, 1), "4 of spades": (4, 1), "5 of spades": (5, 1), "6 of spades": (6, 1), "7 of spades": (7, 1), "8 of spades": (8, 1), "9 of spades": (9, 1), "10 of spades": (10, 1), "Knight of spades": (11, 1), "Queen of spades": (12, 1), "King of spades": (13, 1), "Ace of hearts": (14, 2), "2 of hearts": (15, 2), "3 of hearts": (16, 2), "4 of hearts": (17, 2), "5 of hearts": (18, 2), "6 of hearts": (19, 2), "7 of hearts": (20, 2), "8 of hearts": (21, 2), "9 of hearts": (22, 2), "10 of hearts": (23, 2), "Knight of hearts": (24, 2), "Queen of hearts": (25, 2), "King of hearts": (26, 2), "Joker of spades": (27, 1), "Joker of hearts": (27, 2)}
+    for cards in deck:
+        for key, value in deck_dict.items():
+            if cards == value:
+                print(key)
+
+def split_deck_switch_order(deck, lowest, biggest):
+    card = 0
+    deck1 = []
+    deck2 = []
+    deck3 = []
+    for cards in deck:
+        if card < lowest:
+            deck1.append(cards)
+        elif card >= lowest and card <= biggest:
+            deck2.append(cards)
+        elif card > biggest:
+            deck3.append(cards)
+        card += 1
+    deck = deck3 + deck2 + deck1
+    return deck
+
+def change_to_letters(deck, n):
+     key_to_letters = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 9: "I", 10: "J", 11: "K", 12: "L", 13: "M", 14: "N", 15: "O", 16: "P", 17: "Q", 18: "R", 19: "S", 20: "T", 21: "U", 22: "V", 23: "W", 24: "X", 25: "Y", 26: "Z"}
+     return key_to_letters[first_letter_value]
+
+def value_bottom_card(deck):
+     return deck[-1][0]
+
+def move_top_cards(deck):
+    return move_card(deck, 0, len(deck) -1)
+
+def value_top_card(deck):
+    return deck[0][0]
+
+def find_card_place(deck, n):
+    deck_dict = deck_dict = {"Ace of spades": (1, 1), "2 of spades": (2, 1), "3 of spades": (3, 1), "4 of spades": (4, 1), "5 of spades": (5, 1), "6 of spades": (6, 1), "7 of spades": (7, 1), "8 of spades": (8, 1), "9 of spades": (9, 1), "10 of spades": (10, 1), "Knight of spades": (11, 1), "Queen of spades": (12, 1), "King of spades": (13, 1), "Ace of hearts": (14, 2), "2 of hearts": (15, 2), "3 of hearts": (16, 2), "4 of hearts": (17, 2), "5 of hearts": (18, 2), "6 of hearts": (19, 2), "7 of hearts": (20, 2), "8 of hearts": (21, 2), "9 of hearts": (22, 2), "10 of hearts": (23, 2), "Knight of hearts": (24, 2), "Queen of hearts": (25, 2), "King of hearts": (26, 2), "Joker of spades": (27, 1), "Joker of hearts": (27, 2)}
+    for key, value in deck_dict.items():
+        if n == key:
+            for cards in deck:
+                if cards == value:
+                    card_place = deck.index(cards)
+                    print(f"{n} is at place {deck.index(cards) + 1}")
+                    return card_place
+
+def size_of_deck(deck):
+    return len(deck)
+
+def value_of_card(card, n):
+    deck_dict = deck_dict = {"Ace of spades": (1, 1), "2 of spades": (2, 1), "3 of spades": (3, 1), "4 of spades": (4, 1), "5 of spades": (5, 1), "6 of spades": (6, 1), "7 of spades": (7, 1), "8 of spades": (8, 1), "9 of spades": (9, 1), "10 of spades": (10, 1), "Knight of spades": (11, 1), "Queen of spades": (12, 1), "King of spades": (13, 1), "Ace of hearts": (14, 2), "2 of hearts": (15, 2), "3 of hearts": (16, 2), "4 of hearts": (17, 2), "5 of hearts": (18, 2), "6 of hearts": (19, 2), "7 of hearts": (20, 2), "8 of hearts": (21, 2), "9 of hearts": (22, 2), "10 of hearts": (23, 2), "Knight of hearts": (24, 2), "Queen of hearts": (25, 2), "King of hearts": (26, 2), "Joker of spades": (27, 1), "Joker of hearts": (27, 2)}
+    for key, value in deck_dict.items():
+        if n == key:
+            for cards in deck:
+                if cards == value:
+                    print(value)
+    
+    
+def solitaire_keystream(length = 30):
+    deck = create_deck()
+    #read_card(deck, 11)
+    shuffle_deck(deck)
+    keystring = ""
+    while True:
+        if len(keystring) < length:
+            length_of_deck = size_of_deck(deck)
+            jokerA = find_card_place(deck, "Joker of spades")
+            jokerB = find_card_place(deck, "Joker of hearts")
+            if jokerA == 0:
+                move_card(deck, jokerA, length_of_deck - 1)
+                #location_jokerA = deck.index(jokerA)
+            else:
+                move_card(deck, jokerA, jokerA - 1)
+                #location_jokerA = deck.index(jokerA)
+
+            if jokerB == 0:
+                move_card(deck, jokerB, length_of_deck - 2)
+                #location_jokerB = deck.index(jokerB)
+            elif jokerB == 1:
+                move_card(deck, jokerB, length_of_deck - 1)
+                #location_jokerB = deck.index(jokerB)
+            else:
+                move_card(deck, jokerB, jokerB - 2)
+                #location_jokerB = deck.index(jokerB)
+
+            deck = split_deck_switch_order(deck, jokerA, jokerB)
+
+            bottom_card = value_bottom_card(deck)
+            card = 0
+            for cards in deck:
+                if card <= bottom_card:
+                    move_top_cards(deck)
+                card += 1
+    
+            top_card = value_top_card(deck)
+            if top_card > 27:
+                continue
+            else:
+                first_letter_value = deck[top_card][0]
+                
+        
+            if first_letter_value <= 26:
+                keystream = change_to_letters(first_letter_value)
+                keystring += keystream
+        else:
+            print(keystring)
+            return False
+       
+
+ 
+solitaire_keystream(length = 30)

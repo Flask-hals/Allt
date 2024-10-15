@@ -1,0 +1,13 @@
+from lab5 import *
+#board = create_board()
+#level = []
+#First_level
+with open('/home/jakno825/Downloads/first_level.sokoban') as file:
+    #sokoban_load('/home/jakno825/Downloads/first_level.sokoban')
+#move_player(board)
+    
+        
+    
+ with open('/home/jakno825/Downloads/second_level.sokoban') as file:
+     sokoban_load('/home/jakno825/Downloads/second_level.sokoban')
+move_player(board)

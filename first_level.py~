@@ -1,0 +1,52 @@
+from lab5 import *
+board = create_board()
+level = []
+with open('/home/jakno825/Downloads/first_level.sokoban') as file:
+    for lines in file:
+        level.append(list(lines))
+        y = len(level)
+        for items in level:
+            #print(items)
+            #print("")
+            x = len(items)
+            for items in level:
+                board(y, x) = items
+            print(board)
+            
+        
+                #display_board(board)
+        
+    #for columns in range(len(level)):
+        #print(f"{columns} första")
+    #    for items in range(len(level[columns])):
+            #print(f"{items} andra")
+    #        map = check_coordinate(level, columns, items)
+    #        if map == "Worker":
+    #           add_player(board, columns, items)
+    #        elif map == "Box":
+    #            add_box(board, columns, items)
+    #        else:
+    #            board.append(' ')
+    #print(board)
+            
+            #print(level.index('@'))
+    #print(len(level))
+    #print(items)
+    #print(level)
+    #print(board)
+            #if level[][] == '#':
+            #    add_wall(board, y, x)
+                    #    print(list(lines))
+        #    if items == '\n':
+        #        board.append('')
+        #    else:
+        #        board.append(items)
+    #print(board)
+        #print(list(lines))
+        #board.append(list(lines))
+    #print(board)
+    #for items in board:
+    #    print(items)
+
+#display_board(board)
+#move_player(board)
